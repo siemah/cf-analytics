@@ -1,4 +1,4 @@
-name = "serverless-cf"
+name = "views-analytics-via-cf"
 main = "src/index.ts"
 compatibility_date = "2023-06-30"
 

@@ -11,7 +11,7 @@ To get details about the colo code use [this repo](https://github.com/Netrvin/cl
 
 # RoadMap
 
-- [ ] Save views by timestamp of the current day
+- [x] Save views by timestamp of the current day
 - [ ] Save all the details in a [cloudflare KV](https://developers.cloudflare.com/workers/wrangler/workers-kv/)
 - [ ] Create a cron job using [cloudflare schedule event](https://developers.cloudflare.com/workers/runtime-apis/scheduled-event/#scheduledevent) to run each hour and save the new views in a Database ([via cloudflare D1](https://developers.cloudflare.com/d1/))
-- [ ] Remove the old data after saving them in a database.
+- [ ] Remove the old data after saving them into a database.
