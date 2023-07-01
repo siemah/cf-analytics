@@ -1,12 +1,5 @@
-import { Router } from "itty-router";
 import { parseUserAgent } from "./helpers/user-agent";
-
-const ANALYTICS_NAME_PREFIX = "zz-store-<id>";
-const corsHeaders = {
-	'Access-Control-Allow-Origin': '*',
-	'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
-	'Access-Control-Max-Age': '86400',
-};
+import { Hono } from "hono";
 
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
@@ -18,7 +11,7 @@ const corsHeaders = {
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export interface Env {
+export type Env = {
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
 	ZZ_STORES_ANALYTICS: KVNamespace;
 	//
@@ -29,11 +22,23 @@ export interface Env {
 	// MY_BUCKET: R2Bucket;
 }
 
-const router = Router();
+const ANALYTICS_NAME_PREFIX = "zz-store-<id>";
+const corsHeaders = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
+	'Access-Control-Allow-Headers': '*',
+	'Access-Control-Allow-Credentials': 'true',
+	'Vary': 'Origin',
+	'Access-Control-Max-Age': '86400',
+};
+const app = new Hono<{
+	Bindings: Env
+}>();
 
-router
-	.get("/stats", async (_, env: Env) => {
-		let views = await env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
+app
+	.get("/stats", async (ctx) => {
+		let views = await ctx.env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
+		// console.log("first", views)
 		return new Response(
 			views, {
 			headers: {
@@ -42,7 +47,10 @@ router
 			}
 		});
 	})
-	.post("/view", async (request, env: Env) => {
+	.post("/view", async (ctx) => {
+		console.log("view")
+		const request = ctx.req.raw;
+		const env = ctx.env;
 		const ip = request.headers.get("cf-connecting-ip");
 		const {
 			longitude,
@@ -56,8 +64,9 @@ router
 			region,
 			regionCode,
 			asOrganization,
-			postalCode
-		} = request.cf;
+			postalCode,
+			colo: dataCenterCode
+		} = request.cf as any;
 		const userLocation = {
 			ip,
 			longitude,
@@ -67,11 +76,12 @@ router
 			region,
 			regionCode,
 			asOrganization,
-			postalCode
+			postalCode,
+			dataCenterCode
 		}
 		// parse user agent
 		const UA = request.headers.get("User-Agent");
-		const { browser, os } = parseUserAgent(UA);
+		const { browser, os } = parseUserAgent(UA as string);
 		// get user language(browser lang)
 		const AL = request.headers.get("Accept-Language");
 		const userAgent = {
@@ -87,7 +97,8 @@ router
 		const dayDate = date.getDate();
 		const month = date.getMonth();
 		const year = date.getFullYear();
-		const dateItemKey = `${year}/${month}/${dayDate}`;
+		const dateItemKey = (new Date(`${year}/${month + 1}/${dayDate}`)).getTime();
+		const uuid = crypto.randomUUID();
 		let views = await env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
 
 		if (views === null) {
@@ -97,6 +108,8 @@ router
 
 		const viewsData = JSON.parse(views);
 		const userViewDetails = {
+			uuid,
+			timestamp: date.getTime(),
 			location: userLocation,
 			agent: userAgent,
 		}
@@ -124,6 +137,7 @@ export default {
 		env: Env,
 		ctx: ExecutionContext
 	): Promise<Response> {
-		return router.handle(request, env, ctx);
+		// return router.handle(request, env, ctx);
+		return app.fetch(request, env, ctx as any);
 	},
 };
