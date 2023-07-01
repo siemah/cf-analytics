@@ -14,4 +14,10 @@ To get details about the colo code use [this repo](https://github.com/Netrvin/cl
 - [x] Save views by timestamp of the current day
 - [x] Save all the details in a [cloudflare KV](https://developers.cloudflare.com/workers/wrangler/workers-kv/)
 - [x] Create a cron job using [cloudflare schedule event](https://developers.cloudflare.com/workers/runtime-apis/scheduled-event/#scheduledevent) to run each hour and save the new views in a Database ([via cloudflare D1](https://developers.cloudflare.com/d1/))
+
+  - [ ] Create a D1 database
+  - [ ] Bind it to the current worker
+  - [ ] Write a sql query to create a DB if not exists
+  - [ ] Save a new stats to the DB
+
 - [ ] Remove the old data after saving them into a database.

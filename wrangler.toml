@@ -8,3 +8,8 @@ kv_namespaces = [
 
 [triggers]
 crons = ["* * * * *"]
+
+[[ d1_databases ]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "views-analytics-via-cf"
+database_id = "4c81dc43-8827-4d4d-9d01-0c395af6fa9e"
