@@ -1,10 +1,10 @@
 import { parseUserAgent } from "./helpers/user-agent";
 import { Hono } from "hono";
+import { Env } from "./types/global";
+import saveStatsToDB from "./jobs";
 
-export type Env = {
-	Bindings: {
-		ZZ_STORES_ANALYTICS: KVNamespace;
-	}
+type HonoEnv = {
+	Bindings: Env
 }
 
 const ANALYTICS_NAME_PREFIX = "zz-store-<id>";
@@ -13,7 +13,7 @@ const corsHeaders = {
 	'Access-Control-Allow-Origin': '*',
 	'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS'
 };
-const app = new Hono<Env>();
+const app = new Hono<HonoEnv>();
 
 app
 	.get("/stats", async (ctx) => {
@@ -119,9 +119,12 @@ app
 export default {
 	async fetch(
 		request: Request,
-		env: Env,
+		env: HonoEnv,
 		ctx: ExecutionContext
 	): Promise<Response> {
 		return app.fetch(request, env, ctx as any);
 	},
+	async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
+		ctx.waitUntil(saveStatsToDB(env));
+	}
 };
