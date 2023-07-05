@@ -12,7 +12,7 @@ crons = ["* * * * *"]
 [[ d1_databases ]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "views_analytics"
-database_id = "f49dfa98-342f-4206-aa9c-7a23fede9060"
+database_id = ""
 
 [dev]
 ip = "localhost"
