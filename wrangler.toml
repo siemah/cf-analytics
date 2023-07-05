@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2023-06-23"
 
 kv_namespaces = [
-  { binding = "ZZ_STORES_ANALYTICS", preview_id = "5d96a94d545a4db5a1ba37b9fbf2ba7d", id = "5d96a94d545a4db5a1ba37b9fbf2ba7d" }
+  { binding = "ZZ_STORES_ANALYTICS", preview_id = "", id = "" }
 ]
 
 [triggers]
