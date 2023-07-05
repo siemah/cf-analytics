@@ -1,0 +1,1 @@
+export const ANALYTICS_NAME_PREFIX = "zz-store-<id>";

@@ -1,4 +1,4 @@
--- DROP TABLE IF EXISTS statytics;
+DROP TABLE IF EXISTS statytics;
 CREATE TABLE IF NOT EXISTS statytics (
   id integer PRIMARY KEY AUTOINCREMENT,
   uuid TEXT NULL,
@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS statytics (
   longitude TEXT NULL,
   latitude TEXT NULL,
   country TEXT NULL,
+  language TEXT NULL,
   city TEXT NULL,
   region TEXT NULL,
   regionCode TEXT NULL,
@@ -14,11 +15,12 @@ CREATE TABLE IF NOT EXISTS statytics (
   postalCode TEXT NULL,
   dataCenterCode TEXT NULL,
   browser TEXT NULL,
-  os, TEXT NULL,
+  os TEXT NULL,
   clientAcceptEncoding TEXT NULL,
   tlsVersion TEXT NULL,
   timezone TEXT NULL,
-  httpProtocol TEXT NULL
+  httpProtocol TEXT NULL,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX idx_statytics_id ON statytics (id);
 CREATE INDEX idx_statytics_url ON statytics (url);

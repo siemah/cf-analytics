@@ -1,41 +1,44 @@
 import { parseUserAgent } from "./helpers/user-agent";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { Env } from "./types/global";
 import saveStatsToDB from "./jobs";
+import { ANALYTICS_NAME_PREFIX } from "./config/constants";
 
 type HonoEnv = {
 	Bindings: Env
 }
 
-const ANALYTICS_NAME_PREFIX = "zz-store-<id>";
 const corsHeaders = {
-	'Access-Control-Allow-Headers': '*',
-	'Access-Control-Allow-Origin': '*',
-	'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS'
+	// 'Access-Control-Allow-Headers': '*',
+	// 'Access-Control-Allow-Origin': '*',
+	// 'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS'
 };
 const app = new Hono<HonoEnv>();
 
 app
+	// uncomment this code below to test cron trigger function
+	// .get("/_scheduled", async ({ text, env: { DB: db, ZZ_STORES_ANALYTICS: kv } }) => {
+	// 	await saveStatsToDB({
+	// 		db,
+	// 		kv
+	// 	});
+	// 	return text("√ done");
+	// })
 	.get("/stats", async (ctx) => {
-		let views = await ctx.env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
-		// console.log("first", views)
-		return new Response(
-			views, {
-			headers: {
-				...corsHeaders,
-				"Content-Type": "application/json"
-			}
-		});
+		const sts = await ctx.env.DB.prepare("select * from statytics").all();
+		// let views = await ctx.env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
+		return ctx.json(
+			sts,
+			200,
+			corsHeaders
+		);
 	})
-	.options("/view", async () => {
-		return new Response(null, {
-			headers: corsHeaders,
-			status: 200,
-		});
-	})
+	.use("/view", cors())
 	.post("/view", async (ctx) => {
 		const request = ctx.req.raw;
 		const env = ctx.env;
+		const extaData = await ctx.req.json();
 		const ip = request.headers.get("cf-connecting-ip");
 		const {
 			longitude,
@@ -76,7 +79,8 @@ app
 			tlsVersion,
 			timezone,
 			httpProtocol,
-			language: AL
+			language: AL,
+			url: extaData?.url || ""
 		};
 		const date = new Date();
 		const dayDate = date.getDate();
@@ -116,15 +120,19 @@ app
 		});
 	});
 
+
 export default {
 	async fetch(
 		request: Request,
-		env: HonoEnv,
+		env: Env,
 		ctx: ExecutionContext
 	): Promise<Response> {
 		return app.fetch(request, env, ctx as any);
 	},
 	async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-		ctx.waitUntil(saveStatsToDB(env));
+		await saveStatsToDB({
+			db: env.DB,
+			kv: env.ZZ_STORES_ANALYTICS,
+		});
 	}
 };
