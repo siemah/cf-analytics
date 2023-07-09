@@ -1,0 +1,22 @@
+{
+  "name": "ui-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230419.0",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "@graphql-yoga/plugin-response-cache": "^2.1.0",
+    "drizzle-orm": "^0.27.0",
+    "graphql": "^16.7.1",
+    "graphql-yoga": "^4.0.3",
+    "hono": "^3.2.7"
+  }
+}

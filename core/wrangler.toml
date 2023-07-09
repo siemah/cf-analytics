@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2023-06-23"
 
 kv_namespaces = [
-  { binding = "kv", preview_id = "", id = "" }
+  { binding = "kv", preview_id = "939e809199ec444da35fb03493bce56f", id = "939e809199ec444da35fb03493bce56f" }
 ]
 
 [triggers]
@@ -12,7 +12,7 @@ crons = ["0 */2 * * *"] # run every 2 hours
 [[ d1_databases ]]
 binding = "database" # i.e. available in your Worker on env.DB
 database_name = "views_analytics"
-database_id = ""
+database_id = "2f2bfa24-f08a-4e30-9c3b-5c77476c39c7"
 
 [dev]
 ip = "localhost"
