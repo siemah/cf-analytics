@@ -1,1 +1,1 @@
-export const ANALYTICS_NAME_PREFIX = "zz-store-<id>";
+export const ANALYTICS_NAME_PREFIX = "web-analytics";

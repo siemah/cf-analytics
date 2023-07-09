@@ -26,7 +26,7 @@ app
 	// 	return text("√ done");
 	// })
 	.get("/stats", async (ctx) => {
-		const sts = await ctx.env.DB.prepare("select * from statytics").all();
+		const sts = await ctx.env.database.prepare("select * from statytics").all();
 		// let views = await ctx.env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
 		return ctx.json(
 			sts,
@@ -88,10 +88,10 @@ app
 		const year = date.getFullYear();
 		const dateItemKey = (new Date(`${year}/${month + 1}/${dayDate}`)).getTime();
 		const uuid = crypto.randomUUID();
-		let views = await env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
+		let views = await env?.kv?.get(ANALYTICS_NAME_PREFIX);
 
 		if (views === null) {
-			await env.ZZ_STORES_ANALYTICS.put(ANALYTICS_NAME_PREFIX, JSON.stringify({}));
+			await env.kv.put(ANALYTICS_NAME_PREFIX, JSON.stringify({}));
 			views = "{}";
 		}
 
@@ -110,7 +110,7 @@ app
 		}
 
 		const newData = JSON.stringify(viewsData);
-		await env.ZZ_STORES_ANALYTICS.put(ANALYTICS_NAME_PREFIX, newData);
+		await env.kv.put(ANALYTICS_NAME_PREFIX, newData);
 
 		return new Response(newData, {
 			headers: {
@@ -131,8 +131,8 @@ export default {
 	},
 	async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
 		await saveStatsToDB({
-			db: env.DB,
-			kv: env.ZZ_STORES_ANALYTICS,
+			db: env.database,
+			kv: env.kv,
 		});
 	}
 };
