@@ -4,6 +4,29 @@ This worker save extract some infos about your users such as location, device de
 You can extend it to build something like a google analytics by adding some cookies.
 I used this as base code to build a feature to see the vistors of my clients websites instead of using a google analytics(which his size is more than the website page i am talking about an ecommerce website).
 
+## Getting Started
+
+To deploy or run localy follow these steps:
+
+- Install dependencies
+- Create a D1 database 
+```shell
+  npx wrangler d1 create <db name>
+```
+
+- Create KV namespace
+```shell
+  npx wrangler kv:namespace create <kv namespace>
+```
+- Run DB schema
+```shell
+  # locally
+  npx wrangler d1 execute views_analytics --local --file=./src/schemas/schema.sql
+  # production
+  npx wrangler d1 execute views_analytics --file=./src/schemas/schema.sql
+```
+- Now start :cook::cook:
+
 ### Cloudflare "colo"
 
 To get details about the colo code use [this repo](https://github.com/Netrvin/cloudflare-colo-list/blob/main/DC-Colos.json)

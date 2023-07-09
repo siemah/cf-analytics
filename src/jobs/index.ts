@@ -34,8 +34,8 @@ function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
 }
 
 type SaveStatsToDB = {
-  db: Env["DB"],
-  kv: Env["ZZ_STORES_ANALYTICS"]
+  db: Env["database"],
+  kv: Env["kv"]
 };
 /**
  * Save analytics stats to the D1 database
