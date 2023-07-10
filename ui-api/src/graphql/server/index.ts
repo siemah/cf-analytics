@@ -3,7 +3,7 @@ import { useResponseCache } from "@graphql-yoga/plugin-response-cache";
 import { Context } from "hono";
 import yogaCache from "@/graphql/cache";
 import { UseResponseCacheParameter } from "@graphql-yoga/plugin-response-cache/typings/";
-import gobalStats from '@/graphql/resolvers/global-stats';
+import globalStats from '@/graphql/resolvers/global-stats';
 import geolocation from '@/graphql/resolvers/geolocation';
 import geolocationByCountry from '@/graphql/resolvers/geolocation/by-country';
 import technologies from '@/graphql/resolvers/technologies';
@@ -16,7 +16,7 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
   const yoga = createYoga({
     schema: createSchema({
       typeDefs: /* GraphQL */ `
-        type GobalStats {
+        type GlobalStats {
           visitors: Int!
           browser: String!
           os: String!
@@ -32,7 +32,7 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
           networks: [Geo!]
         }
         type Query {
-          gobalStats (from: Int, to: Int): GobalStats!
+          globalStats (from: Int, to: Int): GlobalStats!
           geolocation(from: Int, to: Int, page: Int): [Geo!]
           geolocationByCountry(country: String!, from: Int, to: Int, page: Int): [Geo!]
           technologies(from: Int, to: Int, page: Int): Technologies!
@@ -40,7 +40,7 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
       `,
       resolvers: {
         Query: {
-          gobalStats,
+          globalStats,
           geolocation,
           geolocationByCountry,
           technologies

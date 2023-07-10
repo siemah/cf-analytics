@@ -11,7 +11,7 @@ import { oneWeekTimestamp } from "@/config/constants";
  * @param context resolver context
  * @returns number of visitors
  */
-export default async function gobalStats(_: {}, args: Omit<ResolverSharedArgs, "page">, context: ResolverSharedContext) {
+export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, "page">, context: ResolverSharedContext) {
   let results;
   const _to = args?.to ?? Date.now();
   const _from = args?.from ?? _to - oneWeekTimestamp;
