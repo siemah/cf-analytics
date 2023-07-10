@@ -5,6 +5,7 @@ import yogaCache from "@/graphql/cache";
 import { UseResponseCacheParameter } from "@graphql-yoga/plugin-response-cache/typings/";
 import gobalStats from '@/graphql/resolvers/global-stats';
 import geolocation from '@/graphql/resolvers/geolocation';
+import geolocationByCountry from '@/graphql/resolvers/geolocation/by-country';
 import { drizzle } from 'drizzle-orm/d1';
 import { HonoEnv } from "@/types";
 
@@ -14,25 +15,27 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
   const yoga = createYoga({
     schema: createSchema({
       typeDefs: /* GraphQL */ `
-					type GobalStats {
-						visitors: Int!
-						browser: String!
-						os: String!
-						country: String!
-					}
-					type Geo {
-						name: String!
-						total: Int!
-					}
-					type Query {
-						gobalStats (from: Int, to: Int): GobalStats!
-						geolocation(from: Int, to: Int, page: Int): [Geo!]
-					}
-				`,
+        type GobalStats {
+          visitors: Int!
+          browser: String!
+          os: String!
+          country: String!
+        }
+        type Geo {
+          name: String!
+          total: Int!
+        }
+        type Query {
+          gobalStats (from: Int, to: Int): GobalStats!
+          geolocation(from: Int, to: Int, page: Int): [Geo!]
+          geolocationByCountry(country: String!, from: Int, to: Int, page: Int): [Geo!]
+        }
+      `,
       resolvers: {
         Query: {
           gobalStats,
-          geolocation
+          geolocation,
+          geolocationByCountry
         }
       }
     }),
