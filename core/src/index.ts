@@ -18,7 +18,7 @@ const app = new Hono<HonoEnv>();
 
 app
 	// uncomment this code below to test cron trigger function
-	// .get("/_scheduled", async ({ text, env: { DB: db, ZZ_STORES_ANALYTICS: kv } }) => {
+	// .get("/_scheduled", async ({ text, env: { database: db, kv } }) => {
 	// 	await saveStatsToDB({
 	// 		db,
 	// 		kv

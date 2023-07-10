@@ -22,7 +22,7 @@ const statytics = sqliteTable('statytics', {
   tlsVersion: text("tlsVersion"),
   timezone: text("timezone"),
   httpProtocol: text("httpProtocol"),
-  createdAt: integer("createdAt").default(sql`(NOW())`),
+  createdAt: integer("createdAt").default(sql`(CURRENT_TIMESTAMP)`),
 });
 
 export type Statytics = InferModel<typeof statytics>; // return type when queried

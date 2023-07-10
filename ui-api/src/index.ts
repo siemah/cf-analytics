@@ -25,7 +25,7 @@ router
 				typeDefs: /* GraphQL */ `
 					type Query {
 						hello: String!
-						visitors: String!
+						visitors(from: Int, to: Int): Int!
 					}
 				`,
 				resolvers: {
