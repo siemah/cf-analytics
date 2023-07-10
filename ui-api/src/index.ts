@@ -3,7 +3,7 @@ import { useResponseCache } from "@graphql-yoga/plugin-response-cache";
 import { Hono } from "hono";
 import yogaCache from "./graphql/cache";
 import { UseResponseCacheParameter } from "@graphql-yoga/plugin-response-cache/typings/";
-import gobalStats from './graphql/resolvers/visitors';
+import gobalStats from './graphql/resolvers/global-stats';
 import { drizzle } from 'drizzle-orm/d1';
 
 export type Env = {
@@ -30,13 +30,11 @@ router
 						country: String!
 					}
 					type Query {
-						hello: String!
 						gobalStats(from: Int, to: Int): GobalStats!
 					}
 				`,
 				resolvers: {
 					Query: {
-						hello: () => 'Hello World!',
 						gobalStats
 					}
 				}
