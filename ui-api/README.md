@@ -1,6 +1,6 @@
 # Road Map
 
-- [ ] Get number of visitors
+- [x] Get global stats such as number of visitors, top country, browser and os
 - [ ] Get users location by country and state
 - [ ] Used browsers and OS
 - [ ] Most visited urls
