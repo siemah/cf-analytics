@@ -1,9 +1,10 @@
 import { createYoga, createSchema } from "graphql-yoga";
 import { useResponseCache } from "@graphql-yoga/plugin-response-cache";
 import { Hono } from "hono";
-import yogaCache from "./graphql/cache";
+import yogaCache from "@/graphql/cache";
 import { UseResponseCacheParameter } from "@graphql-yoga/plugin-response-cache/typings/";
-import gobalStats from './graphql/resolvers/global-stats';
+import gobalStats from '@/graphql/resolvers/global-stats';
+import geolocation from '@/graphql/resolvers/geolocation';
 import { drizzle } from 'drizzle-orm/d1';
 
 export type Env = {
@@ -29,13 +30,19 @@ router
 						os: String!
 						country: String!
 					}
+					type Geo {
+						name: String!
+						total: Int!
+					}
 					type Query {
-						gobalStats(from: Int, to: Int): GobalStats!
+						gobalStats (from: Int, to: Int): GobalStats!
+						geolocation(from: Int, to: Int): [Geo!]
 					}
 				`,
 				resolvers: {
 					Query: {
-						gobalStats
+						gobalStats,
+						geolocation
 					}
 				}
 			}),
