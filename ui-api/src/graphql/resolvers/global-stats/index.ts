@@ -10,7 +10,7 @@ import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
  * @param context resolver context
  * @returns number of visitors
  */
-export default async function gobalStats(_: {}, args: ResolverSharedArgs, context: ResolverSharedContext) {
+export default async function gobalStats(_: {}, args: Omit<ResolverSharedArgs, "page">, context: ResolverSharedContext) {
   let results;
   const weekTimestamp = 60 * 60 * 24 * 7 * 1000;
   const _to = args?.to ?? Date.now();
@@ -56,6 +56,7 @@ export default async function gobalStats(_: {}, args: ResolverSharedArgs, contex
       .groupBy(statytics.country)
       .orderBy(desc(sql<number>`total`))
       .get();
+
     results = {
       visitors,
       country: country.name,

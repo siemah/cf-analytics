@@ -36,7 +36,7 @@ router
 					}
 					type Query {
 						gobalStats (from: Int, to: Int): GobalStats!
-						geolocation(from: Int, to: Int): [Geo!]
+						geolocation(from: Int, to: Int, page: Int): [Geo!]
 					}
 				`,
 				resolvers: {
