@@ -1,7 +1,7 @@
 import statytics from "@/db/schema/statytics";
-import { gte, sql, and, lte, desc, eq } from "drizzle-orm";
+import { gte, sql, and, lte, desc, } from "drizzle-orm";
 import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
-import { maxItemPerPage } from "@/config/constants";
+import { maxItemPerPage, oneWeekTimestamp } from "@/config/constants";
 
 interface GeolocationByCountryArgs extends ResolverSharedArgs {
   country: string;
@@ -16,9 +16,8 @@ interface GeolocationByCountryArgs extends ResolverSharedArgs {
  */
 export default async function geolocationByCountry(_: {}, args: GeolocationByCountryArgs, context: ResolverSharedContext) {
   let results: { name: string | null; total: number }[];
-  const weekTimestamp = 60 * 60 * 24 * 7 * 1000;
   const _to = args?.to ?? Date.now();
-  const _from = args?.from ?? _to - weekTimestamp;
+  const _from = args?.from ?? _to - oneWeekTimestamp;
   const _page = args?.page ?? 1;
 
   try {
@@ -38,7 +37,7 @@ export default async function geolocationByCountry(_: {}, args: GeolocationByCou
       .groupBy(statytics.region)
       .orderBy(desc(sql<number>`total`))
       .limit(maxItemPerPage)
-      .offset(_page - 1)
+      .offset((_page - 1) * maxItemPerPage)
       .all();
   } catch (error) {
     results = [];

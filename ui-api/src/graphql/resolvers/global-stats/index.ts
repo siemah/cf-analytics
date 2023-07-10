@@ -1,6 +1,7 @@
 import statytics from "@/db/schema/statytics";
 import { gte, sql, and, lte, desc } from "drizzle-orm";
 import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
+import { oneWeekTimestamp } from "@/config/constants";
 
 /**
  * Get number of visitors
@@ -12,9 +13,8 @@ import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
  */
 export default async function gobalStats(_: {}, args: Omit<ResolverSharedArgs, "page">, context: ResolverSharedContext) {
   let results;
-  const weekTimestamp = 60 * 60 * 24 * 7 * 1000;
   const _to = args?.to ?? Date.now();
-  const _from = args?.from ?? _to - weekTimestamp;
+  const _from = args?.from ?? _to - oneWeekTimestamp;
 
   try {
     const { count: visitors } = await context.dbOrm

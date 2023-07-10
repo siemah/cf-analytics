@@ -34,7 +34,7 @@ export default async function geolocation(_: {}, args: ResolverSharedArgs, conte
       .groupBy(statytics.country)
       .orderBy(desc(sql<number>`total`))
       .limit(maxItemPerPage)
-      .offset(_page - 1)
+      .offset((_page - 1) * maxItemPerPage)
       .all();
   } catch (error) {
     results = [];
