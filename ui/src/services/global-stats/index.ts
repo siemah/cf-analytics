@@ -1,5 +1,6 @@
 import { apiGraphqlEndpoint } from "@/config/constants";
 import { GraphQlBody, GraphQlPaginationVariables } from "@/graphql/types";
+import graphqlFetch from "@/utils/http";
 
 /**
  * Fetch global stats details such as top country, number of visits..
@@ -13,7 +14,7 @@ export default async function getGlobalStats(variables?: GraphQlPaginationVariab
       "Content-Type": "application/json",
     });
     const query = `
-      {
+      query {
         globalStats {
           visitors
           browser
@@ -30,12 +31,7 @@ export default async function getGlobalStats(variables?: GraphQlPaginationVariab
       queryBody.variables = variables as GraphQlBody["variables"];
     }
 
-    const response = await fetch(apiGraphqlEndpoint, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(queryBody),
-    });;
-    const { data } = await response.json();
+    const data = await graphqlFetch(queryBody);
     return data;
   } catch (error) {
     return null;

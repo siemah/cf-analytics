@@ -7,7 +7,6 @@ export const runtime = "edge";
 export default async function Home() {
   const { globalStats = {} } = await getGlobalStats();
   const { geolocation: countries } = await geolocation();
-  console.log(countries)
 
   return (
     <div className="flex flex-col gap-6">
