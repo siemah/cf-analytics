@@ -453,10 +453,10 @@ detect-libc@^2.0.0:
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz#e1897aa88fa6ad197862937fbc0441ef352ee0cd"
   integrity sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==
 
-drizzle-orm@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.npmjs.org/drizzle-orm/-/drizzle-orm-0.27.0.tgz#497691fc5b73fb8828400389cb4e0c77961387ba"
-  integrity sha512-LGiJ0icB+wQwgbSCOvAjONY8Ec6G/EDzQQP5PmUaQYeI9OqgpVKHC2T1fFIbvk5dabWsbokJ5NOciVAxriStig==
+drizzle-orm@^0.27.1:
+  version "0.27.1"
+  resolved "https://registry.npmjs.org/drizzle-orm/-/drizzle-orm-0.27.1.tgz#017358a7e9e9e1196310310afff6af0e032a07d6"
+  integrity sha512-SLZQBzGusKuB6fqHlRrWrNPFQHef1bS/VYPvJH4XfNPOHx/Sgs++UKKctgKDn7bwqwRBKs0rbvvJ561drCOo/g==
 
 dset@^3.1.1, dset@^3.1.2:
   version "3.1.2"

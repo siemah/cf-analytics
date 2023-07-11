@@ -7,6 +7,7 @@ import globalStats from '@/graphql/resolvers/global-stats';
 import geolocation from '@/graphql/resolvers/geolocation';
 import geolocationByCountry from '@/graphql/resolvers/geolocation/by-country';
 import popularPaths from '@/graphql/resolvers/popular-paths';
+import popularReferrers from '@/graphql/resolvers/popular-referrer';
 import technologies from '@/graphql/resolvers/technologies';
 import { drizzle } from 'drizzle-orm/d1';
 import { HonoEnv } from "@/types";
@@ -24,7 +25,7 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
           country: String!
         }
         type Geo {
-          name: String!
+          name: String
           total: Int!
         }
         type Technologies {
@@ -38,6 +39,7 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
           geolocationByCountry(country: String!, from: Int, to: Int, page: Int): [Geo!]
           technologies(from: Int, to: Int, page: Int): Technologies!
           popularPaths(from: Int, to: Int, page: Int): [Geo!]!
+          popularReferrers(from: Int, to: Int, page: Int): [Geo!]!
         }
       `,
       resolvers: {
@@ -46,7 +48,8 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
           geolocation,
           geolocationByCountry,
           technologies,
-          popularPaths
+          popularPaths,
+          popularReferrers
         }
       }
     }),

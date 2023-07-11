@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@graphql-yoga/plugin-response-cache": "^2.1.0",
-    "drizzle-orm": "^0.27.0",
+    "drizzle-orm": "^0.27.1",
     "graphql": "^16.7.1",
     "graphql-yoga": "^4.0.3",
     "hono": "^3.2.7"
