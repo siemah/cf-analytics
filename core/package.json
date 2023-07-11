@@ -4,6 +4,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@types/ua-parser-js": "^0.7.36",
+    "drizzle-kit": "^0.19.3",
     "typescript": "^4.9.4",
     "vitest": "^0.32.2",
     "wrangler": "^3.1.1"
@@ -12,9 +13,11 @@
   "scripts": {
     "start": "npx wrangler@beta dev",
     "dev": "npx wrangler@beta dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "db:migration": "npx drizzle-kit generate:sqlite"
   },
   "dependencies": {
+    "drizzle-orm": "^0.27.1",
     "hono": "^3.2.7",
     "ua-parser-js": "^1.0.35"
   }

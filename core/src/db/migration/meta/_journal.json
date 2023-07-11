@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1689078570091,
+      "tag": "0000_next_gertrude_yorkes",
+      "breakpoints": true
+    }
+  ]
+}

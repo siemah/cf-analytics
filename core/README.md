@@ -18,12 +18,16 @@ To deploy or run localy follow these steps:
 ```shell
   npx wrangler kv:namespace create <kv namespace>
 ```
+- Generate DB schema(sql file needed to create table/run migration) using [drizzle orm](https://orm.drizzle.team/docs/)
+```shell
+  yarn run db:migration
+```
 - Run DB schema
 ```shell
   # locally
-  npx wrangler d1 execute views_analytics --local --file=./src/schemas/schema.sql
+  npx wrangler d1 execute views_analytics --local --file=./src/db/migration/name-of-new-generated-file.sql
   # production
-  npx wrangler d1 execute views_analytics --file=./src/schemas/schema.sql
+  npx wrangler d1 execute views_analytics --file=./src/db/migration/name-of-new-generated-file.sql
 ```
 - Now start :cook::cook:
 
