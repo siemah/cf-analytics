@@ -41,18 +41,18 @@ app
 		const extaData = await ctx.req.json();
 		const ip = request.headers.get("cf-connecting-ip");
 		const {
-			longitude,
-			latitude,
-			clientAcceptEncoding,
-			country,
-			tlsVersion,
-			timezone,
-			city,
-			httpProtocol,
-			region,
-			regionCode,
-			asOrganization,
-			postalCode,
+			longitude = null,
+			latitude = null,
+			clientAcceptEncoding = null,
+			country = null,
+			tlsVersion = null,
+			timezone = null,
+			city = null,
+			httpProtocol = null,
+			region = null,
+			regionCode = null,
+			asOrganization = null,
+			postalCode = null,
 			colo: dataCenterCode
 		} = request.cf as any;
 		const userLocation = {
@@ -69,7 +69,7 @@ app
 		}
 		// parse user agent
 		const UA = request.headers.get("User-Agent");
-		const { browser, os } = parseUserAgent(UA as string);
+		const { browser = null, os = null } = parseUserAgent(UA as string);
 		// get user language(browser lang)
 		const AL = request.headers.get("Accept-Language");
 		const userAgent = {
@@ -80,7 +80,8 @@ app
 			timezone,
 			httpProtocol,
 			language: AL,
-			url: extaData?.url || ""
+			url: extaData?.url || null,
+			referrer: extaData?.referrer || null,
 		};
 		const date = new Date();
 		const dayDate = date.getDate();

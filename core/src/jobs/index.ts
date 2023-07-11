@@ -7,7 +7,7 @@ import { Env } from "../types/global";
  * @returns an object contains a perpared sql query for insertion and its prepared values
  */
 function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
-  let sqlQuery = "INSERT INTO statytics (uuid, url, language, ip, longitude, latitude, country, city, region, regionCode, asOrganization, postalCode, dataCenterCode, browser, os, clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt) VALUES ";
+  let sqlQuery = "INSERT INTO statytics (uuid, url, referrer, language, ip, longitude, latitude, country, city, region, regionCode, asOrganization, postalCode, dataCenterCode, browser, os, clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt) VALUES ";
   const bind: (number | string)[] = [];
 
   Object
@@ -15,18 +15,18 @@ function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
     .forEach(key => {
       const viewsByDay = viewsList[key];
       viewsByDay.forEach((item, index) => {
-        sqlQuery += ` (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        sqlQuery += ` (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         sqlQuery += index < viewsByDay.length - 1 ? "," : "";
         const {
           uuid, timestamp: createdAt, agent, location
         } = item;
         const {
-          browser, os, clientAcceptEncoding, tlsVersion, timezone, httpProtocol, language, url = "/"
+          browser, os, clientAcceptEncoding, tlsVersion, timezone, httpProtocol, language, url = "/", referrer = null
         } = agent;
         const {
           ip = "", longitude, latitude, country, city, region, regionCode, asOrganization, postalCode, dataCenterCode
         } = location;
-        bind.push(uuid, url, language, ip, longitude, latitude, country, city, region, regionCode, asOrganization, postalCode, dataCenterCode, JSON.stringify(browser), JSON.stringify(os), clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt);
+        bind.push(uuid, url, referrer, language, ip, longitude, latitude, country, city || null, region || null, regionCode || null, asOrganization, postalCode || null, dataCenterCode || null, JSON.stringify(browser), JSON.stringify(os), clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt);
       });
     });
 
