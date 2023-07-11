@@ -3,32 +3,36 @@ import { GraphQlBody, GraphQlPaginationVariables } from "@/graphql/types";
 import graphqlFetch from "@/utils/http";
 
 /**
- * Fetch global stats details such as top country, number of visits..
+ * Fetch technologies used by visitors such as browsers, os's and networks
  * 
  * @param variables filter data of the global stats
- * @returns global stats details
+ * @returns technologies stats details
  */
-export default async function getGlobalStats(variables?: GraphQlPaginationVariables) {
+export default async function getTechnologies(variables?: GraphQlPaginationVariables) {
   try {
     const query = `
       query {
-        globalStats {
-          visitors
-          browser
-          os
-          country
+        technologies {
+          browsers {
+            name
+            total
+          }
+          os { 
+            name
+            total
+          }
+          networks {
+            name
+            total
+          }
         }
       }
     `;
     let queryBody: GraphQlBody = {
       query
     };
-
-    if (variables !== undefined) {
-      queryBody.variables = variables as GraphQlBody["variables"];
-    }
-
     const data = await graphqlFetch(queryBody);
+    
     return data;
   } catch (error) {
     return null;

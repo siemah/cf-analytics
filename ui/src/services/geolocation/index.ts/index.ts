@@ -8,7 +8,7 @@ import graphqlFetch from "@/utils/http";
  * @param variables filter data of the global stats
  * @returns global stats details
  */
-export default async function geolocation(variables?: GraphQlPaginationVariables) {
+export default async function getGeolocation(variables?: GraphQlPaginationVariables) {
   try {
     const query = `
       query ($from: Int, $to: Int, $page: Int) {
