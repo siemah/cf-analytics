@@ -1,38 +1,11 @@
-const apiGraphqlEndpoint = "http://localhost:8787/graphql";
-async function getGlobalStats() {
-  try {
-    const headers = new Headers({
-      "Content-Type": "application/json",
-    });
-    const query = `
-      {
-        globalStats {
-          visitors
-          browser
-          os
-          country
-        }
-      }
-    `;
-    const response = await fetch(apiGraphqlEndpoint, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ query }),
-    });;
-    const { data } = await response.json();
-    console.log("<==========>", data);
-    return data;
-  } catch (error) {
-    console.log(error)
-    return null;
-  }
-}
+import getGlobalStats from "@/services/global-stats";
 
 export default async function Home() {
   const { globalStats = {} } = await getGlobalStats();
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Global stats */}
       <div className="flex gap-6 items-center justify-center">
         <div className="bg-white rounded-3xl border py-8 px-6 w-3/6">
           <div className="flex justify-between items-center mb-4">
