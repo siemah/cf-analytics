@@ -4,7 +4,7 @@ export interface GraphQlBody {
 }
 
 export interface GraphQlPaginationVariables {
-  from?: number;
-  to?: number;
-  page?: number;
+  from?: number | null;
+  to?: number | null;
+  page?: number | null;
 };

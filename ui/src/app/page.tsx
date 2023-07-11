@@ -1,7 +1,13 @@
+import geolocation from "@/services/geolocation/index.ts";
 import getGlobalStats from "@/services/global-stats";
+import Image from "next/image";
+
+export const runtime = "edge";
 
 export default async function Home() {
   const { globalStats = {} } = await getGlobalStats();
+  const { geolocation: countries } = await geolocation();
+  console.log(countries)
 
   return (
     <div className="flex flex-col gap-6">
@@ -69,6 +75,65 @@ export default async function Home() {
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* User locations */}
+        <div className="md:col-span-2 lg:col-span-1">
+          {/* <!-- component --> */}
+          <section className="antialiased text-gray-600">
+            <div className="flex flex-col h-full">
+              {/* <!-- Table --> */}
+              <div className="w-full bg-white rounded-xl border border-gray-200">
+                <header className="px-5 py-4 border-b border-gray-100">
+                  <h2 className="font-semibold text-gray-800">Top Countries</h2>
+                </header>
+                <div className="p-3">
+                  <div className="overflow-x-auto">
+                    <table className="table-auto w-full">
+                      <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                        <tr>
+                          <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold text-left">Name</div>
+                          </th>
+                          <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold text-right">Visits</div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-sm divide-y divide-gray-100">
+                        {
+                          countries.map((country: Record<string, string>) => (
+                            <tr key={`country-stat-item-${country.name}`}>
+                              <td className="p-2 whitespace-nowrap">
+                                <div className="flex items-center">
+                                  <div className="relative w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
+                                    <Image
+                                      className="rounded-full object-cover outline outline-2 outline-offset-2 outline-blue-500"
+                                      src={`https://flagcdn.com/h60/${country.name?.toLowerCase()}.png`}
+                                      alt={country.name}
+                                      priority={false}
+                                      unoptimized
+                                      fill
+                                    />
+                                  </div>
+                                  <div className="font-medium text-gray-800">
+                                    {country?.name}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="p-2 whitespace-nowrap">
+                                <div className="text-right font-lg font-semibold">{country.total}</div>
+                              </td>
+                            </tr>
+                          ))
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
         <div className="md:col-span-2 lg:col-span-1">
           <div className="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
             <svg className="w-40 m-auto opacity-75" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
