@@ -1,7 +1,7 @@
 import statytics from "@/db/schema/statytics";
 import { gte, sql, and, lte, desc, } from "drizzle-orm";
 import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
-import { maxItemPerPage } from "@/config/constants";
+import { maxItemPerPage, oneWeekTimestamp } from "@/config/constants";
 
 /**
  * Get number of visitors
@@ -13,9 +13,8 @@ import { maxItemPerPage } from "@/config/constants";
  */
 export default async function geolocation(_: {}, args: ResolverSharedArgs, context: ResolverSharedContext) {
   let results: { name: string | null; total: number }[];
-  const weekTimestamp = 60 * 60 * 24 * 7 * 1000;
   const _to = args?.to ?? Date.now();
-  const _from = args?.from ?? _to - weekTimestamp;
+  const _from = args?.from ?? _to - oneWeekTimestamp;
   const _page = args?.page ?? 1;
 
   try {
