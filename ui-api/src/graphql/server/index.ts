@@ -6,6 +6,7 @@ import { UseResponseCacheParameter } from "@graphql-yoga/plugin-response-cache/t
 import globalStats from '@/graphql/resolvers/global-stats';
 import geolocation from '@/graphql/resolvers/geolocation';
 import geolocationByCountry from '@/graphql/resolvers/geolocation/by-country';
+import popularPaths from '@/graphql/resolvers/popular-paths';
 import technologies from '@/graphql/resolvers/technologies';
 import { drizzle } from 'drizzle-orm/d1';
 import { HonoEnv } from "@/types";
@@ -36,6 +37,7 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
           geolocation(from: Int, to: Int, page: Int): [Geo!]
           geolocationByCountry(country: String!, from: Int, to: Int, page: Int): [Geo!]
           technologies(from: Int, to: Int, page: Int): Technologies!
+          popularPaths(from: Int, to: Int, page: Int): [Geo!]!
         }
       `,
       resolvers: {
@@ -43,7 +45,8 @@ export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
           globalStats,
           geolocation,
           geolocationByCountry,
-          technologies
+          technologies,
+          popularPaths
         }
       }
     }),
