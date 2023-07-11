@@ -10,10 +10,13 @@ export default async function Home() {
   const { technologies } = await getTechnologies();
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 px-4 py-8">
+      <h1 className="font-semibold text-4xl">
+        Dashboard
+      </h1>
       {/* Global stats */}
-      <div className="flex gap-6 items-center justify-center">
-        <div className="bg-white rounded-3xl border py-8 px-6 w-3/6">
+      <div className="flex gap-6 items-center justify-center flex-wrap">
+        <div className="flex-1 min-w-fit bg-white rounded-3xl border py-8 px-6 w-3/6">
           <div className="flex justify-between items-center mb-4">
             <span className="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-yellow-400 to-green-500 rounded-full">
               <svg stroke="currentColor" fill="#FFFFFF" strokeWidth="20" viewBox="0 0 1024 1024" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path></svg>
@@ -28,7 +31,7 @@ export default async function Home() {
             <h1 className="font-semibold text-xl text-gray-700">{globalStats?.visitors}</h1>
           </div>
         </div>
-        <div className="bg-white rounded-3xl border py-8 px-6 w-3/6">
+        <div className="flex-1 min-w-fit bg-white rounded-3xl border py-8 px-6 w-3/6">
           <div className="flex justify-between items-center mb-4">
             <span className="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-green-400 to-blue-500 rounded-full">
               <svg stroke="currentColor" fill="#FFFFFF" strokeWidth="0" viewBox="0 0 512 512" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M189.37,152.86Zm-58.74-29.37C130.79,123.5,130.71,123.5,130.63,123.49Zm351.42,45.35c-10.61-25.5-32.08-53-48.94-61.73,13.72,26.89,21.67,53.88,24.7,74,0,0,0,.14.05.41-27.58-68.75-74.35-96.47-112.55-156.83-1.93-3.05-3.86-6.11-5.74-9.33-1-1.65-1.86-3.34-2.69-5.05A44.88,44.88,0,0,1,333.24.69a.63.63,0,0,0-.55-.66.9.9,0,0,0-.46,0l-.12.07-.18.1.1-.14c-54.23,31.77-76.72,87.38-82.5,122.78a130,130,0,0,0-48.33,12.33,6.25,6.25,0,0,0-3.09,7.75,6.13,6.13,0,0,0,7.79,3.79l.52-.21a117.84,117.84,0,0,1,42.11-11l1.42-.1c2-.12,4-.2,6-.22A122.61,122.61,0,0,1,291,140c.67.2,1.32.42,2,.63,1.89.57,3.76,1.2,5.62,1.87,1.36.5,2.71,1,4.05,1.58,1.09.44,2.18.88,3.25,1.35q2.52,1.13,5,2.35c.75.37,1.5.74,2.25,1.13q2.4,1.26,4.74,2.63,1.51.87,3,1.8a124.89,124.89,0,0,1,42.66,44.13c-13-9.15-36.35-18.19-58.82-14.28,87.74,43.86,64.18,194.9-57.39,189.2a108.43,108.43,0,0,1-31.74-6.12c-2.42-.91-4.8-1.89-7.16-2.93-1.38-.63-2.76-1.27-4.12-2C174.5,346,149.9,316.92,146.83,281.59c0,0,11.25-41.95,80.62-41.95,7.5,0,28.93-20.92,29.33-27-.09-2-42.54-18.87-59.09-35.18-8.85-8.71-13.05-12.91-16.77-16.06a69.58,69.58,0,0,0-6.31-4.77A113.05,113.05,0,0,1,173.92,97c-25.06,11.41-44.55,29.45-58.71,45.37h-.12c-9.67-12.25-9-52.65-8.43-61.08-.12-.53-7.22,3.68-8.15,4.31a178.54,178.54,0,0,0-23.84,20.43A214,214,0,0,0,51.9,133.36l0,0a.08.08,0,0,1,0,0,205.84,205.84,0,0,0-32.73,73.9c-.06.27-2.33,10.21-4,22.48q-.42,2.87-.78,5.74c-.57,3.69-1,7.71-1.44,14,0,.24,0,.48-.05.72-.18,2.71-.34,5.41-.49,8.12,0,.41,0,.82,0,1.24,0,134.7,109.21,243.89,243.92,243.89,120.64,0,220.82-87.58,240.43-202.62.41-3.12.74-6.26,1.11-9.41,4.85-41.83-.54-85.79-15.82-122.55Z"></path></svg>
@@ -43,7 +46,7 @@ export default async function Home() {
             <h1 className="font-semibold text-xl text-gray-700">{globalStats?.browser}</h1>
           </div>
         </div>
-        <div className="bg-white rounded-3xl border py-8 px-6 w-3/6">
+        <div className="flex-1 min-w-fit bg-white rounded-3xl border py-8 px-6 w-3/6">
           <div className="flex justify-between items-center mb-4">
             <button className="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-blue-400 to-red-500 rounded-full">
               <svg stroke="#ffffff" fill="#ffffff" strokeWidth="0" viewBox="0 0 24 24" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="ffffff" strokeWidth="2" d="M1,19 L23,19 L23,1 L1,1 L1,19 Z M5,23 L19,23 L5,23 Z M8,23 L16,23 L16,19 L8,19 L8,23 Z M7.757,5.757 L9.879,7.879 L7.757,5.757 Z M9,10 L6,10 L9,10 Z M9.879,12.121 L7.757,14.243 L9.879,12.121 Z M12,13 L12,16 L12,13 Z M14.121,12.121 L16.243,14.243 L14.121,12.121 Z M18,10 L15,10 L18,10 Z M16.243,5.757 L14.121,7.879 L16.243,5.757 Z M12,7 L12,4 L12,7 Z M12,7 C10.343,7 9,8.343 9,10 C9,11.657 10.343,13 12,13 C13.657,13 15,11.657 15,10 C15,8.343 13.657,7 12,7 L12,7 Z"></path></svg>
@@ -58,7 +61,7 @@ export default async function Home() {
             <h1 className="font-semibold text-xl text-gray-700">{globalStats?.os}</h1>
           </div>
         </div>
-        <div className="bg-white rounded-3xl border py-8 px-6 w-3/6">
+        <div className="flex-1 min-w-fit bg-white rounded-3xl border py-8 px-6 w-3/6">
           <div className="flex justify-between items-center mb-4">
             <button className="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-green-300 to-green-700 rounded-full">
               <svg stroke="currentColor" fill="#FFFFFF" strokeWidth="0" viewBox="0 0 16 16" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM3.668 2.501l-.288.646a.847.847 0 0 0 1.479.815l.245-.368a.809.809 0 0 1 1.034-.275.809.809 0 0 0 .724 0l.261-.13a1 1 0 0 1 .775-.05l.984.34c.078.028.16.044.243.054.784.093.855.377.694.801-.155.41-.616.617-1.035.487l-.01-.003C8.274 4.663 7.748 4.5 6 4.5 4.8 4.5 3.5 5.62 3.5 7c0 1.96.826 2.166 1.696 2.382.46.115.935.233 1.304.618.449.467.393 1.181.339 1.877C6.755 12.96 6.674 14 8.5 14c1.75 0 3-3.5 3-4.5 0-.262.208-.468.444-.7.396-.392.87-.86.556-1.8-.097-.291-.396-.568-.641-.756-.174-.133-.207-.396-.052-.551a.333.333 0 0 1 .42-.042l1.085.724c.11.072.255.058.348-.035.15-.15.415-.083.489.117.16.43.445 1.05.849 1.357L15 8A7 7 0 1 1 3.668 2.501Z"></path></svg>
@@ -74,6 +77,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
+      {/* Other stats such as visitors location(country), browsers.. */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* User locations */}
         <div className="md:col-span-2 lg:col-span-1">
