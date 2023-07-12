@@ -24,7 +24,7 @@ export default async function graphqlFetch({ query, variables }: GraphQlBody) {
       method: "POST",
       headers,
       body: JSON.stringify(queryBody),
-    });;
+    });
     const { data } = await response.json();
 
     return data;

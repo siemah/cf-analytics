@@ -4,4 +4,4 @@
 - [x] List users location by country and state
 - [x] Used browsers, OS and networks
 - [x] Most visited urls
-- [ ] Traffic sources(referer) or where website traffics come from
+- [x] Traffic sources(referer) or where website traffics come from
