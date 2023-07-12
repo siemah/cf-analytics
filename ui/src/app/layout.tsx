@@ -17,10 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="container-block flex">
-          <aside className="sticky top-0 left-0 flex">
-            <div className="flex flex-col items-center w-16 h-screen py-8 space-y-8 bg-white dark:bg-gray-900 dark:border-gray-700">
+      <body className={`${inter.className} dark:bg-gray-800`}>
+        <div className="container-block flex relative">
+          <aside className="sticky top-0 left-0 h-screen flex dark:bg-gray-900">
+            <div className="flex flex-col items-center w-16 h-screen py-8 space-y-8 dark:border-gray-700">
               <a href="#">
                 <Image
                   className="w-auto h-6"
@@ -62,7 +62,7 @@ export default function RootLayout({
               </a>
             </div>
           </aside>
-          <div className="flex-1">
+          <div className="flex-1 dark:bg-gray-800">
             {children}
           </div>
         </div>
