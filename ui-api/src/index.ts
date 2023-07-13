@@ -11,7 +11,7 @@ const honeycombConfig: Config = {
 	dataset: "dayen-analytics-ui-api", // can also be provided by setting env var HONEYCOMB_DATASET
 	acceptTraceContext: true,
 	data: {
-		service: "graphql-cf-workers",
+		service: "dayen-analytics-ui-api",
 		version: "0.1.0",
 	},
 	redactRequestHeaders: ["authorization"],
@@ -24,6 +24,7 @@ export default wrapModule(
 	honeycombConfig,
 	{
 		async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+			// console.log(request.tracer.log)
 			return router.fetch(request, env, ctx);
 		},
 	}

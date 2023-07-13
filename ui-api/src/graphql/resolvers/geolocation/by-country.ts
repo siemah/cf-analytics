@@ -2,6 +2,7 @@ import statytics from "@/db/schema/statytics";
 import { gte, sql, and, lte, desc, } from "drizzle-orm";
 import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
 import { maxItemPerPage, oneWeekTimestamp } from "@/config/constants";
+import logToAPM from "@/libs/apm-logs";
 
 interface GeolocationByCountryArgs extends ResolverSharedArgs {
   country: string;
@@ -40,6 +41,10 @@ export default async function geolocationByCountry(_: {}, args: GeolocationByCou
       .offset((_page - 1) * maxItemPerPage)
       .all();
   } catch (error) {
+    logToAPM(
+      context.request.raw.tracer,
+      JSON.stringify(error)
+    );
     results = [];
   }
 

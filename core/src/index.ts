@@ -127,7 +127,7 @@ const honeycombConfig: Config = {
 	dataset: "dayen-analytics-core", // can also be provided by setting env var HONEYCOMB_DATASET
 	acceptTraceContext: true,
 	data: {
-		service: "graphql-cf-workers",
+		service: "dayen-analytics-core",
 		version: "0.1.0",
 	},
 	redactRequestHeaders: ["authorization"],

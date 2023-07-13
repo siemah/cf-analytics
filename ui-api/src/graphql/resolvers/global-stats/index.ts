@@ -2,6 +2,7 @@ import statytics from "@/db/schema/statytics";
 import { gte, sql, and, lte, desc } from "drizzle-orm";
 import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
 import { oneWeekTimestamp } from "@/config/constants";
+import logToAPM from "@/libs/apm-logs";
 
 /**
  * Get number of visitors
@@ -64,6 +65,10 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       os: os?.name
     };
   } catch (error) {
+    logToAPM(
+      context.request.raw.tracer,
+      JSON.stringify(error)
+    );
     results = {
       visitors: 0,
       country: null,

@@ -2,6 +2,7 @@ import statytics from "@/db/schema/statytics";
 import { gte, sql, and, lte, desc, } from "drizzle-orm";
 import { ResolverSharedArgs, ResolverSharedContext } from "@/graphql/types";
 import { maxItemPerPage, oneWeekTimestamp } from "@/config/constants";
+import logToAPM from "@/libs/apm-logs";
 
 /**
  * Get number of visitors
@@ -77,7 +78,10 @@ export default async function technologies(_: {}, args: ResolverSharedArgs, cont
       networks,
     }
   } catch (error) {
-    console.log(error)
+    logToAPM(
+      context.request.raw.tracer,
+      JSON.stringify(error)
+    );
     results = {
       browsers: [],
       os: [],
