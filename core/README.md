@@ -35,8 +35,18 @@ To deploy or run localy follow these steps:
 
 To get details about the colo code use [this repo](https://github.com/Netrvin/cloudflare-colo-list/blob/main/DC-Colos.json)
 
+## Using It
 
-# RoadMap
+Tp integrate this analytics just send a request to the core api as following:
+
+```js
+// using fetch
+fetch("https://dayen-analytics-core.<cf-user>.workers.dev/view", {method:"POST", body:JSON.stringify({url:location.href, referrer: document.referrer})})
+// or use 
+navigator.sendBeacon("https://dayen-analytics-core.<cf-user>.workers.dev/view", {method:"POST", body:JSON.stringify({url:location.href, referrer: document.referrer})})
+```
+
+## RoadMap
 
 - [x] Save views by timestamp of the current day
 - [x] Save all the details in a [cloudflare KV](https://developers.cloudflare.com/workers/wrangler/workers-kv/)
