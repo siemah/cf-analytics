@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 import { Env } from "./types/global";
 import saveStatsToDB from "./jobs";
 import { ANALYTICS_NAME_PREFIX } from "./config/constants";
+import { Config, wrapModule } from '@cloudflare/workers-honeycomb-logger';
 
 type HonoEnv = {
 	Bindings: Env
@@ -121,19 +122,36 @@ app
 		});
 	});
 
-
-export default {
-	async fetch(
-		request: Request,
-		env: Env,
-		ctx: ExecutionContext
-	): Promise<Response> {
-		return app.fetch(request, env, ctx as any);
+const honeycombConfig: Config = {
+	apiKey: "UpM8vG6yYfbXg4kt4qEh9F", // can also be provided by setting env var HONEYCOMB_API_KEY
+	dataset: "dayen-analytics-core", // can also be provided by setting env var HONEYCOMB_DATASET
+	acceptTraceContext: true,
+	data: {
+		service: "graphql-cf-workers",
+		version: "0.1.0",
 	},
-	async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-		await saveStatsToDB({
-			db: env.database,
-			kv: env.kv,
-		});
-	}
+	redactRequestHeaders: ["authorization"],
+	redactResponseHeaders: [],
+	sendTraceContext: true,
+	debugLog: true,
 };
+
+export default wrapModule(
+	honeycombConfig,
+	{
+		async fetch(
+			request: Request,
+			env: Env,
+			ctx: ExecutionContext
+		): Promise<Response> {
+			return app.fetch(request, env, ctx as any);
+		},
+		// @ts-ignore
+		async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
+			await saveStatsToDB({
+				db: env.database,
+				kv: env.kv,
+			});
+		}
+	}
+);

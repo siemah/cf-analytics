@@ -34,6 +34,21 @@
   resolved "https://registry.npmjs.org/@cloudflare/workerd-windows-64/-/workerd-windows-64-1.20230628.0.tgz#d5a8706021073d470de5f0709c09e28cac54b199"
   integrity sha512-y6scWqHFHhlf2a1AsT0UeMyWSloIO1baVxp9DW62gFO8BwWrTPgwiG9Rr09zllY5tSxkrU7VOPsEbK9NNcRMsA==
 
+"@cloudflare/workers-honeycomb-logger@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/@cloudflare/workers-honeycomb-logger/-/workers-honeycomb-logger-2.3.3.tgz#10eb81e5be3a137ae177e417db2802f9ac8f8e1a"
+  integrity sha512-2HqQWZnBDSf41UWKz6zSMQlTuLb+P9LaqQXQEowMJIfzie3aEKk/bZLTfLzCRLOq9cn4Rhgawm8pha4rJpvS4Q==
+  dependencies:
+    "@cloudflare/workers-types" "^3.2.0"
+    "@types/uuid" "^8.3.0"
+    dotenv "^9.0.2"
+    uuid "^8.3.2"
+
+"@cloudflare/workers-types@^3.2.0":
+  version "3.19.0"
+  resolved "https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-3.19.0.tgz#f3791b80b23f7cf0072f2e67e98aa37801204b6c"
+  integrity sha512-0FRcsz7Ea3jT+gc5gKPIYciykm1bbAaTpygdzpCwGt0RL+V83zWnYN30NWDW4rIHj/FHtz+MIuBKS61C8l7AzQ==
+
 "@cloudflare/workers-types@^4.20230419.0":
   version "4.20230628.0"
   resolved "https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-4.20230628.0.tgz#2aacc7ec8c250cd02213b331f1e267cc25db7299"
@@ -268,6 +283,11 @@
   resolved "https://registry.npmjs.org/@repeaterjs/repeater/-/repeater-3.0.4.tgz#a04d63f4d1bf5540a41b01a921c9a7fddc3bd1ca"
   integrity sha512-AW8PKd6iX3vAZ0vA43nOUOnbq/X5ihgU+mSXXqunMkeQADGiqw/PY0JNeYtD5sr0PAy51YPgAPbDoeapv9r8WA==
 
+"@types/uuid@^8.3.0":
+  version "8.3.4"
+  resolved "https://registry.npmjs.org/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
+  integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
+
 "@whatwg-node/events@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@whatwg-node/events/-/events-0.1.1.tgz#0ca718508249419587e130da26d40e29d99b5356"
@@ -452,6 +472,11 @@ detect-libc@^2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz#e1897aa88fa6ad197862937fbc0441ef352ee0cd"
   integrity sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==
+
+dotenv@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-9.0.2.tgz#dacc20160935a37dea6364aa1bef819fb9b6ab05"
+  integrity sha512-I9OvvrHp4pIARv4+x9iuewrWycX6CcZtoAu1XrzPxc5UygMJXJZYmBsynku8IkrJwgypE5DGNjDPmPRhDCptUg==
 
 drizzle-orm@^0.27.1:
   version "0.27.1"
@@ -1017,6 +1042,11 @@ util-deprecate@^1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 value-or-promise@^1.0.12:
   version "1.0.12"

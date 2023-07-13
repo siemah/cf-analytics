@@ -34,6 +34,21 @@
   resolved "https://registry.npmjs.org/@cloudflare/workerd-windows-64/-/workerd-windows-64-1.20230518.0.tgz#d0dcf6b51a1b6593e1c70b04e001bebcf2b703c1"
   integrity sha512-vNEHKS5gKKduNOBYtQjcBopAmFT1iScuPWMZa2nJboSjOB9I/5oiVsUpSyk5Y2ARyrohXNz0y8D7p87YzTASWw==
 
+"@cloudflare/workers-honeycomb-logger@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/@cloudflare/workers-honeycomb-logger/-/workers-honeycomb-logger-2.3.3.tgz#10eb81e5be3a137ae177e417db2802f9ac8f8e1a"
+  integrity sha512-2HqQWZnBDSf41UWKz6zSMQlTuLb+P9LaqQXQEowMJIfzie3aEKk/bZLTfLzCRLOq9cn4Rhgawm8pha4rJpvS4Q==
+  dependencies:
+    "@cloudflare/workers-types" "^3.2.0"
+    "@types/uuid" "^8.3.0"
+    dotenv "^9.0.2"
+    uuid "^8.3.2"
+
+"@cloudflare/workers-types@^3.2.0":
+  version "3.19.0"
+  resolved "https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-3.19.0.tgz#f3791b80b23f7cf0072f2e67e98aa37801204b6c"
+  integrity sha512-0FRcsz7Ea3jT+gc5gKPIYciykm1bbAaTpygdzpCwGt0RL+V83zWnYN30NWDW4rIHj/FHtz+MIuBKS61C8l7AzQ==
+
 "@cloudflare/workers-types@^4.20221111.1":
   version "4.20221111.1"
   resolved "https://registry.npmjs.org/@cloudflare/workers-types/-/workers-types-4.20221111.1.tgz"
@@ -430,6 +445,11 @@
   resolved "https://registry.npmjs.org/@types/ua-parser-js/-/ua-parser-js-0.7.36.tgz"
   integrity sha512-N1rW+njavs70y2cApeIw1vLMYXRwfBy+7trgavGuuTfOd7j1Yh7QTRc/yqsPl6ncokt72ZXuxEU0PiCp9bSwNQ==
 
+"@types/uuid@^8.3.0":
+  version "8.3.4"
+  resolved "https://registry.npmjs.org/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
+  integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
+
 "@vitest/expect@0.32.2":
   version "0.32.2"
   resolved "https://registry.npmjs.org/@vitest/expect/-/expect-0.32.2.tgz"
@@ -755,6 +775,11 @@ difflib@~0.2.1:
   integrity sha512-9YVwmMb0wQHQNr5J9m6BSj6fk4pfGITGQOOs+D9Fl+INODWFOfvhIU1hNv6GgR1RBoC/9NJcwu77zShxV0kT7w==
   dependencies:
     heap ">= 0.2.0"
+
+dotenv@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-9.0.2.tgz#dacc20160935a37dea6364aa1bef819fb9b6ab05"
+  integrity sha512-I9OvvrHp4pIARv4+x9iuewrWycX6CcZtoAu1XrzPxc5UygMJXJZYmBsynku8IkrJwgypE5DGNjDPmPRhDCptUg==
 
 dreamopt@~0.8.0:
   version "0.8.0"
@@ -1707,6 +1732,11 @@ util-deprecate@^1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 vite-node@0.32.2:
   version "0.32.2"

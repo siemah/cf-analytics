@@ -1,6 +1,6 @@
 {
-  "name": "serverless-cf",
-  "version": "0.0.0",
+  "name": "dayen-analytics-core",
+  "version": "0.1.0",
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@types/ua-parser-js": "^0.7.36",
@@ -17,6 +17,7 @@
     "db:migration": "npx drizzle-kit generate:sqlite"
   },
   "dependencies": {
+    "@cloudflare/workers-honeycomb-logger": "^2.3.3",
     "drizzle-orm": "^0.27.1",
     "hono": "^3.2.7",
     "ua-parser-js": "^1.0.35"
