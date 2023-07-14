@@ -32,7 +32,7 @@ export default async function Home() {
           </div>
           <div>
             <h3 className="font-semibold text-sm text-gray-400">Visits</h3>
-            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.visitors}</h1>
+            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.visitors || 0}</h1>
           </div>
         </div>
         <div className="flex-1 min-w-fit bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-700 py-8 px-6 w-3/6">
@@ -47,7 +47,7 @@ export default async function Home() {
           </div>
           <div>
             <h3 className="font-semibold text-sm text-gray-400">Top Browser</h3>
-            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.browser}</h1>
+            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.browser || 0}</h1>
           </div>
         </div>
         <div className="flex-1 min-w-fit bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-700 py-8 px-6 w-3/6">
@@ -62,7 +62,7 @@ export default async function Home() {
           </div>
           <div>
             <h3 className="font-semibold text-sm text-gray-400">Top Os</h3>
-            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.os}</h1>
+            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.os || "N/A"}</h1>
           </div>
         </div>
         <div className="flex-1 min-w-fit bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-700 py-8 px-6 w-3/6">
@@ -77,7 +77,7 @@ export default async function Home() {
           </div>
           <div>
             <h3 className="font-semibold text-sm text-gray-400">Top Country</h3>
-            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.country}</h1>
+            <h1 className="font-semibold text-xl text-gray-700 dark:text-gray-200">{globalStats?.country || "N/A"}</h1>
           </div>
         </div>
       </div>
