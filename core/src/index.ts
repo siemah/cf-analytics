@@ -135,8 +135,7 @@ const honeycombConfig: Config = {
 	sendTraceContext: true,
 	debugLog: true,
 };
-
-export default wrapModule(
+const withTracerConfi = wrapModule<Env>(
 	honeycombConfig,
 	{
 		async fetch(
@@ -146,12 +145,19 @@ export default wrapModule(
 		): Promise<Response> {
 			return app.fetch(request, env, ctx as any);
 		},
-		// @ts-ignore
-		async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-			await saveStatsToDB({
-				db: env.database,
-				kv: env.kv,
-			});
-		}
 	}
 );
+
+export default {
+	...withTracerConfi,
+	async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
+		console.log("<<<scheduled>>>");
+		ctx.waitUntil(
+			saveStatsToDB({
+				db: env.database,
+				kv: env.kv,
+			})
+		);
+		console.log("<<</scheduled>>>");
+	}
+}
