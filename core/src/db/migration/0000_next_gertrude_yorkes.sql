@@ -5,6 +5,7 @@ CREATE TABLE `statytics` (
 	`referrer` text DEFAULT NULL,
 	`ip` text DEFAULT NULL,
 	`latitude` text DEFAULT NULL,
+	`longitude` text DEFAULT NULL,
 	`country` text DEFAULT NULL,
 	`language` text DEFAULT NULL,
 	`city` text DEFAULT NULL,

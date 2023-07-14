@@ -15,8 +15,7 @@ function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
     .forEach(key => {
       const viewsByDay = viewsList[key];
       viewsByDay.forEach((item, index) => {
-        sqlQuery += ` (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
-        sqlQuery += index < viewsByDay.length - 1 ? "," : "";
+        sqlQuery += ` (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?),`;
         const {
           uuid, timestamp: createdAt, agent, location
         } = item;
@@ -29,7 +28,7 @@ function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
         bind.push(uuid, url, referrer, language, ip, longitude, latitude, country, city || null, region || null, regionCode || null, asOrganization, postalCode || null, dataCenterCode || null, JSON.stringify(browser), JSON.stringify(os), clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt);
       });
     });
-
+  sqlQuery = sqlQuery.substring(0, sqlQuery.length-1);
   return { sqlQuery, bind };
 }
 
@@ -51,20 +50,20 @@ export default async function saveStatsToDB({ db, kv }: SaveStatsToDB) {
 
     const viewsList: { [key: string]: any[] } = JSON.parse(views);
     var { sqlQuery, bind } = constructSQLQuery(viewsList);
-
+    console.log("<<<<<<sqlQuery>>>>>>", sqlQuery)
     // save a new stats to the DB
     const results = await db
       .prepare(sqlQuery)
       .bind(...bind)
       .run();
-
-    if (results.success) {
+    console.log(JSON.stringify(results))
+    if (results.error === undefined) {
       await kv.delete(ANALYTICS_NAME_PREFIX);
     }
 
     return results;
   } catch (error) {
-    console.log(error);
+    console.log(error, JSON.stringify(error));
     return null;
   }
 }

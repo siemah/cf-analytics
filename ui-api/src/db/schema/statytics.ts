@@ -9,7 +9,7 @@ const statytics = sqliteTable(
     url: text("url").default(sql`NULL`),
     referrer: text("referrer").default(sql`NULL`),
     ip: text("ip").default(sql`NULL`),
-    longitude: text("uuid").default(sql`NULL`),
+    longitude: text("longitude").default(sql`NULL`),
     latitude: text("latitude").default(sql`NULL`),
     country: text("country").default(sql`NULL`),
     language: text("language").default(sql`NULL`),

@@ -7,9 +7,9 @@ import { RequestTracer } from "@cloudflare/workers-honeycomb-logger";
  * @param extraData extra data to add
  */
 export default function logToAPM(tracer: RequestTracer, data: string, extraData?: object) {
-  tracer.log(data);
+  tracer?.log(data);
 
   if (extraData !== undefined) {
-    tracer.addData(extraData);
+    tracer?.addData(extraData);
   }
 }

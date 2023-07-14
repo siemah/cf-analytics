@@ -29,7 +29,8 @@ export default async function getGlobalStats(variables?: GraphQlPaginationVariab
     }
 
     const data = await graphqlFetch(queryBody);
-    return data;
+
+    return data ?? {};
   } catch (error) {
     return null;
   }

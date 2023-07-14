@@ -1,0 +1,1 @@
+ALTER TABLE statytics ADD `longitude` text DEFAULT NULL;
