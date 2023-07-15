@@ -27,7 +27,6 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           email: ${{ secrets.CF_EMAIL }}
           workingDirectory: ui/
-          projectName: azul
           wranglerVersion: '3'
           preCommands: |
             echo "*** pre command ***"
@@ -38,5 +37,5 @@ jobs:
             pwd
             ls -la
 
-          command: pages deploy .vercel/output/static
+          command: pages deploy .vercel/output/static --project-name=dayen-analytics-ui
       
