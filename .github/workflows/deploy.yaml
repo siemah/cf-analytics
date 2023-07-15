@@ -27,6 +27,7 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           email: ${{ secrets.CF_EMAIL }}
           workingDirectory: ui/.vercel/output/static
+          directory: ui/.vercel/output/static
           wranglerVersion: '3'
           command: pages deploy 
       
