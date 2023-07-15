@@ -18,8 +18,8 @@ jobs:
         run: pwd
       - name: Install dependencies
         run: cd ui/ && yarn --frozen-lockfile
-      - name: Where we are?
-        run: pwd
+      - name: Where we are? what in there?
+        run: pwd && ls -laF
       - name: Publish
         uses: cloudflare/wrangler-action@2.0.0
         with:
