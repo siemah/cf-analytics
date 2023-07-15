@@ -37,5 +37,5 @@ jobs:
             pwd
             ls -la
 
-          command: pages deploy .vercel/output/static --project-name=dayen-analytics-ui
+          command: pages deploy .vercel/output/static --project-name=init
       
