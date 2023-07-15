@@ -28,7 +28,6 @@ jobs:
           email: ${{ secrets.CF_EMAIL }}
           workingDirectory: ui/
           projectName: init
-          directory: ui/.vercel
           wranglerVersion: '3'
           preCommands: |
             echo "*** pre command ***"
@@ -39,5 +38,5 @@ jobs:
             pwd
             ls -la
 
-          command: pages deploy 
+          command: pages deploy .vercel/output/static
       
