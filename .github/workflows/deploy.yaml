@@ -23,7 +23,10 @@ jobs:
       - name: Publish
         uses: cloudflare/wrangler-action@2.0.0
         with:
-          apiKey: ${{ secrets.CF_API_KEY }}
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
           email: ${{ secrets.CF_EMAIL }}
-          command: pages deploy ui/.vercel/output/static
+          workingDirectory: ui/.vercel/output/static
+          wranglerVersion: '3'
+          command: pages deploy 
       
