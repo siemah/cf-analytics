@@ -26,8 +26,18 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           email: ${{ secrets.CF_EMAIL }}
-          workingDirectory: ui/.vercel/output/static
-          directory: ui/.vercel/output/static
+          workingDirectory: ui/
+          projectName: init
+          directory: ui/.vercel
           wranglerVersion: '3'
+          preCommands: |
+            echo "*** pre command ***"
+            pwd
+            ls -la
+          postCommands: |
+            echo "*** post commands ***"
+            pwd
+            ls -la
+
           command: pages deploy 
       
