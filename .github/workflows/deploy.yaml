@@ -17,9 +17,9 @@ jobs:
       - name: Current working directory
         run: pwd
       - name: Install dependencies
-        run: cd ui/ && yarn --frozen-lockfile
+        run: cd ui/ && yarn --frozen-lockfile && yarn pages:build
       - name: Where we are? what in there?
-        run: pwd && ls -laF
+        run: pwd && ls -laF ui/
       - name: Publish
         uses: cloudflare/wrangler-action@2.0.0
         with:
