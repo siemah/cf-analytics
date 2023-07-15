@@ -27,7 +27,7 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           email: ${{ secrets.CF_EMAIL }}
           workingDirectory: ui/
-          projectName: 'init'
+          projectName: azul
           wranglerVersion: '3'
           preCommands: |
             echo "*** pre command ***"
