@@ -2,8 +2,7 @@ import { parseUserAgent } from "./helpers/user-agent";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { Env } from "./types/global";
-import saveStatsToDB from "./jobs";
-import { ANALYTICS_NAME_PREFIX } from "./config/constants";
+import saveStatsToDB, { saveStatsItemToDB } from "./jobs";
 import { Config, wrapModule } from '@cloudflare/workers-honeycomb-logger';
 
 type HonoEnv = {
@@ -31,8 +30,10 @@ app
 		// let views = await ctx.env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
 		return ctx.json(
 			sts,
-			200,
-			corsHeaders
+			{
+				status: 200,
+				headers: corsHeaders
+			}
 		);
 	})
 	.use("/view", cors())
@@ -85,36 +86,21 @@ app
 			referrer: extaData?.referrer || null,
 		};
 		const date = new Date();
-		const dayDate = date.getDate();
-		const month = date.getMonth();
-		const year = date.getFullYear();
-		const dateItemKey = (new Date(`${year}/${month + 1}/${dayDate}`)).getTime();
 		const uuid = crypto.randomUUID();
-		let views = await env?.kv?.get(ANALYTICS_NAME_PREFIX);
-
-		if (views === null) {
-			await env.kv.put(ANALYTICS_NAME_PREFIX, JSON.stringify({}));
-			views = "{}";
-		}
-
-		const viewsData = JSON.parse(views);
+		const timestamp = date.getTime();
 		const userViewDetails = {
 			uuid,
-			timestamp: date.getTime(),
+			timestamp,
 			location: userLocation,
 			agent: userAgent,
-		}
+		};
+		
+		await saveStatsItemToDB({
+			db: env.database,
+			data: { [timestamp]: [userViewDetails] }
+		});
 
-		if (!!viewsData?.[dateItemKey]) {
-			viewsData?.[dateItemKey].push(userViewDetails);
-		} else {
-			viewsData[dateItemKey] = [userViewDetails];
-		}
-
-		const newData = JSON.stringify(viewsData);
-		await env.kv.put(ANALYTICS_NAME_PREFIX, newData);
-
-		return new Response(newData, {
+		return new Response(JSON.stringify(userViewDetails), {
 			headers: {
 				...corsHeaders,
 				"Content-Type": "application/json"

@@ -28,7 +28,7 @@ function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
         bind.push(uuid, url, referrer, language, ip, longitude, latitude, country, city || null, region || null, regionCode || null, asOrganization, postalCode || null, dataCenterCode || null, JSON.stringify(browser), JSON.stringify(os), clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt);
       });
     });
-  sqlQuery = sqlQuery.substring(0, sqlQuery.length-1);
+  sqlQuery = sqlQuery.substring(0, sqlQuery.length - 1);
   return { sqlQuery, bind };
 }
 
@@ -60,6 +60,37 @@ export default async function saveStatsToDB({ db, kv }: SaveStatsToDB) {
     if (results.error === undefined) {
       await kv.delete(ANALYTICS_NAME_PREFIX);
     }
+
+    return results;
+  } catch (error) {
+    console.log(error, JSON.stringify(error));
+    return null;
+  }
+}
+
+type SaveStatsItemToDBParams = {
+  db: D1Database;
+  data: {
+    [key: string]: any[];
+  };
+};
+/**
+ * Save item to database
+ * 
+ * @param config contains database connection and data to insert
+ * @returns 
+ */
+export async function saveStatsItemToDB({ db, data }: SaveStatsItemToDBParams) {
+  try {
+    // fetch all view from kv
+    if (!data) return;
+
+    var { sqlQuery, bind } = constructSQLQuery(data);
+    // save a new stats to the DB
+    const results = await db
+      .prepare(sqlQuery)
+      .bind(...bind)
+      .run();
 
     return results;
   } catch (error) {

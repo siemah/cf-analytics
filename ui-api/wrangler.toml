@@ -4,8 +4,8 @@ compatibility_date = "2023-06-28"
 
 [[ d1_databases ]]
 binding = "database" # i.e. available in your Worker on env.DB
-database_name = "views_analytics"
-database_id = "2f2bfa24-f08a-4e30-9c3b-5c77476c39c7"
+database_name = "dayen-analytics"
+database_id = "your-db-id"
 
 [dev]
 ip = "localhost"
