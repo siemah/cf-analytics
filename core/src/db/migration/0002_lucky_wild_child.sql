@@ -1,0 +1,1 @@
+CREATE INDEX `idx_statytics_os` ON `statytics` (`os`);

@@ -15,6 +15,13 @@
       "when": 1689329200929,
       "tag": "0001_round_the_phantom",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1690647077475,
+      "tag": "0002_lucky_wild_child",
+      "breakpoints": true
     }
   ]
 }
