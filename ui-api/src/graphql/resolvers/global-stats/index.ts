@@ -18,6 +18,10 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
   const _from = args?.from ?? _to - oneWeekTimestamp;
 
   try {
+    let _gdnow = Date.now();
+    let _gpnow = performance.now();
+    let _dnow = Date.now();
+    let _pnow = performance.now();
     const { count: visitors } = await context.dbOrm
       .select({
         count: sql<number>`COUNT(id)`
@@ -30,6 +34,13 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
         )
       )
       .get();
+    console.log(
+      "<<<<duration to fetch visitors count using D1>>>>",
+      performance.now() - _pnow,
+      Date.now() - _dnow
+    );
+    _dnow = Date.now();
+    _pnow = performance.now();
     const browser = await context.dbOrm
       .select({
         name: sql<string>`json_extract(browser, '$.name') as name`,
@@ -39,6 +50,13 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       .groupBy(sql<string>`name`)
       .orderBy(desc(sql<number>`total`))
       .get();
+    console.log(
+      "<<<<duration to fetch browser count using D1>>>>",
+      performance.now() - _pnow,
+      Date.now() - _dnow
+    );
+    _dnow = Date.now();
+    _pnow = performance.now();
     const os = await context.dbOrm
       .select({
         name: sql<string>`json_extract(os, '$.name') as name`,
@@ -48,6 +66,13 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       .groupBy(sql<string>`name`)
       .orderBy(desc(sql<number>`total`))
       .get();
+    console.log(
+      "<<<<duration to fetch os count using D1>>>>",
+      performance.now() - _pnow,
+      Date.now() - _dnow
+    );
+    _dnow = Date.now();
+    _pnow = performance.now();
     const country = await context.dbOrm
       .select({
         name: statytics.country,
@@ -57,6 +82,16 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       .groupBy(statytics.country)
       .orderBy(desc(sql<number>`total`))
       .get();
+    console.log(
+      "<<<<duration to fetch country count using D1>>>>",
+      performance.now() - _pnow,
+      Date.now() - _dnow
+    );
+    console.log(
+      "<<<<duration to fetch all details using D1>>>>",
+      performance.now() - _gpnow,
+      Date.now() - _gdnow
+    );
 
     results = {
       visitors,

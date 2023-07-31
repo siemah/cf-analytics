@@ -31,6 +31,7 @@ const statytics = sqliteTable(
     idx_statytics_id: index("idx_statytics_id").on(table.id),
     idx_statytics_url: index("idx_statytics_url").on(table.url),
     idx_statytics_country: index("idx_statytics_country").on(table.country),
+    idx_statytics_os: index("idx_statytics_os").on(table.os),
     idx_statytics_region: index("idx_statytics_region").on(table.region),
     idx_statytics_browser: index("idx_statytics_browser").on(table.id),
     idx_statytics_referrer: index("idx_statytics_referrer").on(table.referrer),

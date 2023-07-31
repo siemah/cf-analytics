@@ -2,7 +2,7 @@ import { parseUserAgent } from "./helpers/user-agent";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { Env } from "./types/global";
-import saveStatsToDB, { saveStatsItemToDB } from "./jobs";
+import { saveStatsItemToDB } from "./jobs";
 import { Config, wrapModule } from '@cloudflare/workers-honeycomb-logger';
 
 type HonoEnv = {
@@ -38,6 +38,9 @@ app
 	})
 	.use("/view", cors())
 	.post("/view", async (ctx) => {
+		let _dnow = Date.now();
+		let _pnow = performance.now();
+
 		const request = ctx.req.raw;
 		const env = ctx.env;
 		const extaData = await ctx.req.json();
@@ -94,12 +97,24 @@ app
 			location: userLocation,
 			agent: userAgent,
 		};
-		
+		console.log(
+			"<<<<duration before saving to D1>>>>",
+			performance.now() - _pnow,
+			Date.now() - _dnow
+		);
+
+		let _gdnow = Date.now();
+		let _gpnow = performance.now();
+
 		await saveStatsItemToDB({
 			db: env.database,
 			data: { [timestamp]: [userViewDetails] }
 		});
-
+		console.log(
+			"<<<<duration after saving to D1>>>>",
+			performance.now() - _gpnow,
+			Date.now() - _gdnow
+		);
 		return new Response(JSON.stringify(userViewDetails), {
 			headers: {
 				...corsHeaders,
@@ -121,7 +136,7 @@ const honeycombConfig: Config = {
 	sendTraceContext: true,
 	debugLog: true,
 };
-const withTracerConfi = wrapModule<Env>(
+const withTracerConfig = wrapModule<Env>(
 	honeycombConfig,
 	{
 		async fetch(
@@ -134,16 +149,4 @@ const withTracerConfi = wrapModule<Env>(
 	}
 );
 
-export default {
-	...withTracerConfi,
-	async scheduled(_: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-		console.log("<<<scheduled>>>");
-		ctx.waitUntil(
-			saveStatsToDB({
-				db: env.database,
-				kv: env.kv,
-			})
-		);
-		console.log("<<</scheduled>>>");
-	}
-}
+export default withTracerConfig;

@@ -2,12 +2,8 @@ name = "analytics-core"
 main = "src/index.ts"
 compatibility_date = "2023-06-23"
 
-kv_namespaces = [
-  { binding = "kv", preview_id = "you-kv-id", id = "you-kv-id" },
-]
-
 [triggers]
-crons = ["*/1 * * * *"] # run every 2 hours
+crons = []
 
 [dev]
 ip = "localhost"
@@ -17,4 +13,4 @@ local_protocol = "http"
 [[d1_databases]]
 binding = "database" # i.e. binding available in your Worker on env.DB 
 database_name = "dayen-analytics"
-database_id = "you-db-id"
+database_id = "your-db-id"
