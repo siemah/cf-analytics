@@ -98,7 +98,7 @@ app
 			agent: userAgent,
 		};
 		console.log(
-			"<<<<duration before saving to D1>>>>",
+			"<<<<duration before saving to Turso>>>>",
 			performance.now() - _pnow,
 			Date.now() - _dnow
 		);
@@ -111,7 +111,7 @@ app
 			data: { [timestamp]: [userViewDetails] }
 		});
 		console.log(
-			"<<<<duration after saving to D1>>>>",
+			"<<<<duration after saving to Turso>>>>",
 			performance.now() - _gpnow,
 			Date.now() - _gdnow
 		);
