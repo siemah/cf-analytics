@@ -1,0 +1,3 @@
+database_id=your-d1-database
+turso_database_url=libsql://<your-turso-db>.turso.io
+turso_database_token=

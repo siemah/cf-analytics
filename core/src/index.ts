@@ -4,6 +4,9 @@ import { cors } from "hono/cors";
 import { Env } from "./types/global";
 import { saveStatsItemToDB } from "./jobs";
 import { Config, wrapModule } from '@cloudflare/workers-honeycomb-logger';
+import statytics from "./db/schema/statytics";
+import { desc } from "drizzle-orm";
+import getDatabase from "./db";
 
 type HonoEnv = {
 	Bindings: Env
@@ -17,19 +20,17 @@ const corsHeaders = {
 const app = new Hono<HonoEnv>();
 
 app
-	// uncomment this code below to test cron trigger function
-	// .get("/_scheduled", async ({ text, env: { database: db, kv } }) => {
-	// 	await saveStatsToDB({
-	// 		db,
-	// 		kv
-	// 	});
-	// 	return text("√ done");
-	// })
 	.get("/stats", async (ctx) => {
-		const sts = await ctx.env.database.prepare("select * from statytics").all();
-		// let views = await ctx.env?.ZZ_STORES_ANALYTICS?.get(ANALYTICS_NAME_PREFIX);
+		const database = getDatabase(ctx.env.turso_database_url, ctx.env.turso_database_token);
+		const stats = await database
+			.select()
+			.from(statytics)
+			.orderBy(desc(statytics.id))
+			.limit(20)
+			.all();
+
 		return ctx.json(
-			sts,
+			stats,
 			{
 				status: 200,
 				headers: corsHeaders
@@ -42,7 +43,6 @@ app
 		let _pnow = performance.now();
 
 		const request = ctx.req.raw;
-		const env = ctx.env;
 		const extaData = await ctx.req.json();
 		const ip = request.headers.get("cf-connecting-ip");
 		const {
@@ -107,7 +107,7 @@ app
 		let _gpnow = performance.now();
 
 		await saveStatsItemToDB({
-			db: env.database,
+			db: getDatabase(ctx.env.turso_database_url, ctx.env.turso_database_token),
 			data: { [timestamp]: [userViewDetails] }
 		});
 		console.log(

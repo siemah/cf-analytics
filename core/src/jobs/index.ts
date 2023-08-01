@@ -1,5 +1,7 @@
+import { LibSQLDatabase } from "drizzle-orm/libsql";
 import { ANALYTICS_NAME_PREFIX } from "../config/constants";
 import { Env } from "../types/global";
+import statytics from "../db/schema/statytics";
 
 /**
  * Construct SQL query to 
@@ -9,6 +11,7 @@ import { Env } from "../types/global";
 function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
   let sqlQuery = "INSERT INTO statytics (uuid, url, referrer, language, ip, longitude, latitude, country, city, region, regionCode, asOrganization, postalCode, dataCenterCode, browser, os, clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt) VALUES ";
   const bind: (number | string)[] = [];
+  const raw: Record<string, string>[] = [];
 
   Object
     .keys(viewsList)
@@ -26,10 +29,34 @@ function constructSQLQuery(viewsList: { [key: string]: any[]; }) {
           ip = "", longitude, latitude, country, city, region, regionCode, asOrganization, postalCode, dataCenterCode
         } = location;
         bind.push(uuid, url, referrer, language, ip, longitude, latitude, country, city || null, region || null, regionCode || null, asOrganization, postalCode || null, dataCenterCode || null, JSON.stringify(browser), JSON.stringify(os), clientAcceptEncoding, tlsVersion, timezone, httpProtocol, createdAt);
+        raw.push({
+          uuid,
+          url,
+          referrer,
+          language,
+          ip,
+          longitude,
+          latitude,
+          country,
+          city: city || null,
+          region: region || null,
+          regionCode: regionCode || null,
+          asOrganization,
+          postalCode: postalCode || null,
+          dataCenterCode: dataCenterCode || null,
+          browser: JSON.stringify(browser),
+          os: JSON.stringify(os),
+          clientAcceptEncoding,
+          tlsVersion,
+          timezone,
+          httpProtocol,
+          createdAt
+        });
       });
     });
   sqlQuery = sqlQuery.substring(0, sqlQuery.length - 1);
-  return { sqlQuery, bind };
+
+  return { sqlQuery, bind, raw };
 }
 
 type SaveStatsToDB = {
@@ -69,7 +96,7 @@ export default async function saveStatsToDB({ db, kv }: SaveStatsToDB) {
 }
 
 type SaveStatsItemToDBParams = {
-  db: D1Database;
+  db: LibSQLDatabase<Record<string, never>>;
   data: {
     [key: string]: any[];
   };
@@ -85,11 +112,11 @@ export async function saveStatsItemToDB({ db, data }: SaveStatsItemToDBParams) {
     // fetch all view from kv
     if (!data) return;
 
-    var { sqlQuery, bind } = constructSQLQuery(data);
+    var { raw } = constructSQLQuery(data);
     // save a new stats to the DB
     const results = await db
-      .prepare(sqlQuery)
-      .bind(...bind)
+      .insert(statytics)
+      .values(raw)
       .run();
 
     return results;
