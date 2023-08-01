@@ -35,7 +35,7 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       )
       .get();
     console.log(
-      "<<<<duration to fetch visitors count using D1>>>>",
+      "<<<<duration to fetch visitors count using Turso>>>>",
       performance.now() - _pnow,
       Date.now() - _dnow
     );
@@ -51,7 +51,7 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       .orderBy(desc(sql<number>`total`))
       .get();
     console.log(
-      "<<<<duration to fetch browser count using D1>>>>",
+      "<<<<duration to fetch browser count using Turso>>>>",
       performance.now() - _pnow,
       Date.now() - _dnow
     );
@@ -67,7 +67,7 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       .orderBy(desc(sql<number>`total`))
       .get();
     console.log(
-      "<<<<duration to fetch os count using D1>>>>",
+      "<<<<duration to fetch os count using Turso>>>>",
       performance.now() - _pnow,
       Date.now() - _dnow
     );
@@ -83,12 +83,12 @@ export default async function globalStats(_: {}, args: Omit<ResolverSharedArgs, 
       .orderBy(desc(sql<number>`total`))
       .get();
     console.log(
-      "<<<<duration to fetch country count using D1>>>>",
+      "<<<<duration to fetch country count using Turso>>>>",
       performance.now() - _pnow,
       Date.now() - _dnow
     );
     console.log(
-      "<<<<duration to fetch all details using D1>>>>",
+      "<<<<duration to fetch all details using Turso>>>>",
       performance.now() - _gpnow,
       Date.now() - _gdnow
     );

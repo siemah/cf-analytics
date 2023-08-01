@@ -2,12 +2,12 @@ name = "ui-api"
 main = "src/index.ts"
 compatibility_date = "2023-06-28"
 
-[[ d1_databases ]]
-binding = "database" # i.e. available in your Worker on env.DB
-database_name = "dayen-analytics"
-database_id = "your-db-id"
-
 [dev]
 ip = "localhost"
 port = 8787
 local_protocol = "http"
+
+[[d1_databases]]
+binding = "database" # i.e. available in your Worker on env.DB
+database_name = "dayen-analytics"
+database_id = "your-db-id"

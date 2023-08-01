@@ -9,12 +9,12 @@ import geolocationByCountry from '@/graphql/resolvers/geolocation/by-country';
 import popularPaths from '@/graphql/resolvers/popular-paths';
 import popularReferrers from '@/graphql/resolvers/popular-referrer';
 import technologies from '@/graphql/resolvers/technologies';
-import { drizzle } from 'drizzle-orm/d1';
 import { HonoEnv } from "@/types";
+import getDatabase from "@/db";
 
 export default function initYogaServer(ctx: Context<HonoEnv, "*", {}>) {
   const { req, env } = ctx;
-  const dbOrm = drizzle(env.database);
+  const dbOrm = getDatabase(ctx.env.turso_database_url, ctx.env.turso_database_token) 
   const yoga = createYoga({
     schema: createSchema({
       typeDefs: /* GraphQL */ `

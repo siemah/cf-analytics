@@ -9,13 +9,15 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230419.0",
+    "drizzle-kit": "^0.19.12",
     "typescript": "^5.0.4",
     "wrangler": "^3.0.0"
   },
   "dependencies": {
     "@cloudflare/workers-honeycomb-logger": "^2.3.3",
     "@graphql-yoga/plugin-response-cache": "^2.1.0",
-    "drizzle-orm": "^0.27.1",
+    "@libsql/client": "^0.3.1",
+    "drizzle-orm": "^0.27.2",
     "graphql": "^16.7.1",
     "graphql-yoga": "^4.0.3",
     "hono": "^3.2.7"

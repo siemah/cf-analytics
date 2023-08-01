@@ -1,5 +1,5 @@
 import { RequestTracer } from "@cloudflare/workers-honeycomb-logger";
-import { DrizzleD1Database } from "drizzle-orm/d1";
+import { LibSQLDatabase } from "drizzle-orm/libsql";
 
 export type ResolverSharedArgs = {
   from?: number;
@@ -8,7 +8,7 @@ export type ResolverSharedArgs = {
 }
 
 export type ResolverSharedContext = {
-  dbOrm: DrizzleD1Database<Record<string, never>>;
+  dbOrm: LibSQLDatabase<Record<string, never>>;
   request: {
     raw: {
       tracer: RequestTracer
